@@ -1,7 +1,6 @@
 import pandas as pd
 import sys,os
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-from tika import parser
 import openai
 from . import api
 from PyPDF2 import PdfReader
@@ -110,17 +109,14 @@ def recommend_similarity_job(result): #유사한 직업 추천하기
     result_similiarty.sort(key=lambda x:x[1], reverse=True)
     return result_similiarty
 
+
 def pdf_to_text(pdf = "ws"): # pdf -> text 
-    pdf_path = f"./_pdf/{pdf}"
-    # # resume = parser.from_file(pdf_path)
-    # resume = parser.from_file(pdf_path)
-    # resume = resume['content'].strip()
-    # return resume
-    reader = PdfReader(pdf_path)
+    reader = PdfReader(pdf)
     pages = reader.pages
     text = ""
     for page in pages:
         sub = page.extract_text()
         text += sub
+    print(text)
     return text
     
