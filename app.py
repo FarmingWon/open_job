@@ -5,9 +5,6 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from recommend import jaccard
 from recommend import region as r
 from recommend import company as corp
-from io import StringIO
-from tika import parser
-
 
 def showRegion(regions):
     regionsNm = [reg[1] for reg in regions]
@@ -25,15 +22,6 @@ def showJob(recommend_jobs, similarity_jobs):
 # def format_link(url):
 #     return f'<a href="{url}">link</a>'
 
-@st.cache
-def pdf_to_text(pdf = "ws"): # pdf -> text 
-    # pdf_path = f"./_pdf/{pdf}.pdf"
-    # resume = parser.from_file(pdf_path)
-    pdfFileObj = open(pdf, 'rb')
-    resume = parser.from_file(pdfFileObj)
-    resume = resume['content'].strip()
-    return resume
-
 def main():
     st.title("이력서 PDF파일을 통한 직업 추천")
     uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
@@ -43,12 +31,10 @@ def main():
     st.session_state.recommend_jobs = None
     st.session_state.similarity_jobs = None
     st.session_state.jobs = None
-    st.session_state.resume = None
     if uploaded_file:
         if st.session_state.recommend_jobs is None:
             GPT_KEY = st.secrets.KEY.GPT_KEY
-            st.session_state.resume = pdf_to_text(uploaded_file)
-            st.session_state.recommend_jobs = jaccard.recommend_job(st.session_state.resume, GPT_KEY)
+            st.session_state.recommend_jobs = jaccard.recommend_job(uploaded_file, GPT_KEY)
             st.write(st.session_state.recommend_jobs)
 
         if st.session_state.recommend_jobs :
