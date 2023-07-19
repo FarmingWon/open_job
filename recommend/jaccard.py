@@ -112,9 +112,9 @@ def recommend_similarity_job(result): #유사한 직업 추천하기
 
 @st.cache_resource
 def pdf_to_text(pdf = "ws"): # pdf -> text 
-    # pdf_path = f"./_pdf/{pdf}.pdf"
+    pdf_path = f"_pdf/{pdf}.pdf"
     # resume = parser.from_file(pdf_path)
-    resume = parser.from_file(pdf)
+    resume = parser.from_file(pdf_path)
     resume = resume['content'].strip()
     return resume
     
