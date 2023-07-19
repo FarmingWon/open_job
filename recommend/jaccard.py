@@ -4,7 +4,6 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from tika import parser
 import openai
 from . import api
-import streamlit as st
 
 
 def get_job(): # csv파일에 있는 직업 skill을 list화
@@ -110,7 +109,6 @@ def recommend_similarity_job(result): #유사한 직업 추천하기
     result_similiarty.sort(key=lambda x:x[1], reverse=True)
     return result_similiarty
 
-@st.cache_resource
 def pdf_to_text(pdf = "ws"): # pdf -> text 
     pdf_path = f"./_pdf/{pdf}"
     # resume = parser.from_file(pdf_path)
