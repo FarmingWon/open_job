@@ -11,3 +11,4 @@ streamlit-echarts
 pandas
 numpy
 matplotlib
+PyPDF2
