@@ -19,8 +19,7 @@ def showJob(recommend_jobs, similarity_jobs):
     st.session_state.selected_job= st.radio(label='',options=jobsNm)
     st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
  
-# def format_link(url):
-#     return f'<a href="{url}">link</a>'
+
 def save_upload_file(dir, file):
     if not os.path.exists(dir):
         os.makedirs(dir)
@@ -42,8 +41,6 @@ def main():
             save_upload_file('_pdf', uploaded_file)
             GPT_KEY = st.secrets.KEY.GPT_KEY
             st.session_state.recommend_jobs = jaccard.recommend_job(uploaded_file, GPT_KEY)
-            st.write(st.session_state.recommend_jobs)
-
         if st.session_state.recommend_jobs :
             recommend_jobs = st.session_state.recommend_jobs
             if st.session_state.similarity_jobs is None:
