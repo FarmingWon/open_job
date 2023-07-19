@@ -4,6 +4,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from tika import parser
 import openai
 from . import api
+from PyPDF2 import PdfReader
 
 
 def get_job(): # csv파일에 있는 직업 skill을 list화
@@ -111,8 +112,15 @@ def recommend_similarity_job(result): #유사한 직업 추천하기
 
 def pdf_to_text(pdf = "ws"): # pdf -> text 
     pdf_path = f"./_pdf/{pdf}"
+    # # resume = parser.from_file(pdf_path)
     # resume = parser.from_file(pdf_path)
-    resume = parser.from_file(pdf_path)
-    resume = resume['content'].strip()
-    return resume
+    # resume = resume['content'].strip()
+    # return resume
+    reader = PdfReader(pdf_path)
+    pages = reader.pages
+    text = ""
+    for page in pages:
+        sub = page.extract_text()
+        text += sub
+    return text
     
