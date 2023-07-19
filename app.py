@@ -21,6 +21,12 @@ def showJob(recommend_jobs, similarity_jobs):
  
 # def format_link(url):
 #     return f'<a href="{url}">link</a>'
+def save_upload_file(dir, file):
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+    with open(os.path.join(dir, file.name), 'wb') as f:
+        f.write(file.getbuffer())
+    return st.success("save file : {} in {}".format(file.name, dir))
 
 def main():
     st.title("이력서 PDF파일을 통한 직업 추천")
@@ -33,6 +39,7 @@ def main():
     st.session_state.jobs = None
     if uploaded_file:
         if st.session_state.recommend_jobs is None:
+            save_upload_file('_pdf', uploaded_file)
             GPT_KEY = st.secrets.KEY.GPT_KEY
             st.session_state.recommend_jobs = jaccard.recommend_job(uploaded_file, GPT_KEY)
             st.write(st.session_state.recommend_jobs)
