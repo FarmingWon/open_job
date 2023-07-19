@@ -41,7 +41,7 @@ def main():
         if st.session_state.recommend_jobs is None:
             save_upload_file('_pdf', uploaded_file)
             GPT_KEY = st.secrets.KEY.GPT_KEY
-            st.session_state.recommend_jobs = jaccard.recommend_job(uploaded_file, GPT_KEY)
+            st.session_state.recommend_jobs = jaccard.recommend_job(uploaded_file.name, GPT_KEY)
             st.write(st.session_state.recommend_jobs)
 
         if st.session_state.recommend_jobs :
