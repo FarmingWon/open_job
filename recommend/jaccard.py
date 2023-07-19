@@ -110,7 +110,7 @@ def recommend_similarity_job(result): #유사한 직업 추천하기
     result_similiarty.sort(key=lambda x:x[1], reverse=True)
     return result_similiarty
 
-@st.cache
+@st.cache_resource
 def pdf_to_text(pdf = "ws"): # pdf -> text 
     # pdf_path = f"./_pdf/{pdf}.pdf"
     # resume = parser.from_file(pdf_path)
